@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Instagram</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Courgette|Niconne" rel="stylesheet">    <style>
+    
+        body{
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fafafa;
+            display: grid;
+            grid-template: 85px 250px 1fr 150px / 1fr;
+            grid-template-areas: "header"
+                                    "usuario"
+                                    "contenido"
+                                    "footer";
+        }
+        .instagram{
+            font-family: 'Niconne';
+        }
+        .header{
+            grid-area: header;
+            display: grid;
+            grid-template-columns:  repeat(3, minmax(100px, 293px));
+            justify-content: center;
+            align-items: center;
+            background: white;
+            border-bottom: 1px solid rgba(0,0,0,.0975);
+        }
+        .header li{
+            list-style: none;
+            margin-left: 1em;
+            float: left;
+        }
+        .header input{
+            height: .5em;
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            color: red;
+            border: 1px solid #dbdbe2;
+            border-radius: 5px;
+        }
+        .header ul{
+            margin: 0;
+        }
+        .item-header:nth-of-type(1){
+            font-size: 2em;
+        }
+        .item-header:nth-of-type(2){
+            justify-self: center;
+        }
+        .item-header:nth-of-type(3){
+            justify-self: end;
+            font-size: 1.5em;
+            color: rgb(100, 100, 100);
+        }
+        .usuario{
+            grid-area: usuario;
+            display: grid;
+            justify-content: center;
+            grid-template-columns: minmax(100px, 290px) minmax(200px, 645px);
+            /* grid-template: 1fr / 290px minmax(162px, 645px); */
+        }
+        .avatar{
+            border-bottom: 1px solid #efefef;
+        }
+        .avatar figure{
+            height: 100%;
+            margin: 0;
+            display: grid;
+            justify-content: center;
+            align-items: center;
+        }
+        .avatar img{
+            border-radius: 50%;
+            padding: 0;
+        }
+        .info{
+            border-bottom: 1px solid #efefef;
+            display: grid;
+            font-family: 'Lato', 'Courier New', Courier, monospace;
+            align-content: center;
+            align-items: center;
+            grid-gap: 5px;
+            grid-template: repeat(3, 40px) / 1fr;
+            color: #262626 !important;
+        }
+        .editar-perfil span{
+            font-weight: lighter;
+            font-size: 2.2em;
+            margin: 0;
+        }
+        .editar-perfil i{
+            margin-left: 10px;
+            font-size: 1.3em;
+        }
+        .editar-perfil{
+            display: grid;
+            grid-template-columns: 200px 150px 1fr;
+            align-items: center;
+        }
+        .editar-perfil button{
+            border: 1px solid #efefef;
+            border-radius: 5px;
+            background: transparent;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 5px 1em;
+        }
+        .info ul{
+            margin: 0;
+        }
+        .info li{
+            list-style: none;
+            float: left;
+        }
+        .estadistica span{
+            margin-right: 2em;
+            font-size: 1.2em;
+        }
+        .name{
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .post-list{
+            margin-top: 2em;
+            grid-area: contenido;
+            display: grid;
+            grid-template-columns: repeat(3,minmax(100px, 293px));
+            justify-content: center;
+            grid-gap: 28px;
+        }
+        .post{
+            cursor: pointer;
+            position: relative;
+            display: block;
+        }
+        .post-image{
+            margin: 0;
+        }
+        .post-image img{
+            width: 100%;
+            height: 100%;
+            vertical-align: top; /*Margen*/
+        }
+        .post-overlay{
+            background: rgba(0, 0, 0, .4);
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        .post:hover .post-overlay{
+            display: flex;
+        }
+        .post-likes, .post-comments{
+            width: 80px;
+            margin: 5px;
+            font-weight: bold;
+            text-align: center;
+            display: inline-block;
+        }
+        @media screen and (max-width: 768px) {
+            .post-list{
+                grid-gap: 3px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="item-header">
+            <i class="fa fa-instagram" aria-hidden="true"></i>
+            |
+            <span class="instagram">Instagram</span>
+        </div>
+        <div class="item-header">
+            <input type="text" placeholder="Buscar">
+        </div>
+        <div class="item-header">
+            <ul>
+                <li><i class="fa fa-compass" aria-hidden="true"></i></li>
+                <li><i class="fa fa-heart-o" aria-hidden="true"></i></li>
+                <li><i class="fa fa-user" aria-hidden="true"></i></li>
+            </ul>
+        </div>
+    </div>
+    <section class="usuario">
+        <div class="avatar">
+            <figure>
+                <img src="https://instagram.fgua3-1.fna.fbcdn.net/vp/ab95b74776977bdcd58d5795bf65e606/5B982909/t51.2885-19/s150x150/19534901_444377019260321_8275299070445092864_a.jpg" alt="Foto">
+            </figure>
+        </div>
+        <div class="info">
+            <div class="editar-perfil">
+                <span>Kitanorosal</span>
+                <button>Editar perfil</button>
+                <i class="fa fa-cog" aria-hidden="true"></i>
+
+            </div>
+            <div class="estadistica">
+                <span><b>4</b> publicaciones</span>
+                <span><b>46</b> seguidores</span>
+                <span><b>248</b> seguidos</span>
+            </div>
+            <div>
+                <span class="name">Cayetano Rosales</span>
+            </div>
+        </div>
+    </section>
+    <section class="post-list">
+        <a href="" class="post">
+            <figure class="post-image">
+                <img src ="compu.jpg" alt="">
+                <div class="post-overlay">
+                    <p>
+                        <span class="post-likes"><i class="fa fa-heart" aria-hidden="true"></i> 150</span>
+                        <span class="post-comments"><i class="fa fa-comment" aria-hidden="true"></i> 10</span>
+                    </p>
+                </div>
+            </figure>
+        </a>
+        <a href="" class="post">
+            <figure class="post-image">
+                <img src="compu2.jpg" alt="">
+                <div class="post-overlay">
+                    <p>
+                        <span class="post-likes">
+                            <i class="fa fa-heart" aria-hidden="true"></i> 150</span>
+                        <span class="post-comments">
+                            <i class="fa fa-comment" aria-hidden="true"></i> 10</span>
+                    </p>
+                </div>
+            </figure>
+        </a>
+        <a href="" class="post">
+            <figure class="post-image">
+                <img src="compu3.jpg" alt="">
+                <div class="post-overlay">
+                    <p>
+                        <span class="post-likes">
+                            <i class="fa fa-heart" aria-hidden="true"></i> 150</span>
+                        <span class="post-comments">
+                            <i class="fa fa-comment" aria-hidden="true"></i> 10</span>
+                    </p>
+                </div>
+            </figure>
+        </a>
+        <a href="" class="post">
+            <figure class="post-image">
+                <img src="compu.jpg" alt="">
+                <div class="post-overlay">
+                    <p>
+                        <span class="post-likes">
+                            <i class="fa fa-heart" aria-hidden="true"></i> 150</span>
+                        <span class="post-comments">
+                            <i class="fa fa-comment" aria-hidden="true"></i> 10</span>
+                    </p>
+                </div>
+            </figure>
+        </a>
+        <a href="" class="post">
+            <figure class="post-image">
+                <img src="compu2.jpg" alt="">
+                <div class="post-overlay">
+                    <p>
+                        <span class="post-likes">
+                            <i class="fa fa-heart" aria-hidden="true"></i> 150</span>
+                        <span class="post-comments">
+                            <i class="fa fa-comment" aria-hidden="true"></i> 10</span>
+                    </p>
+                </div>
+            </figure>
+        </a>
+        <a href="" class="post">
+            <figure class="post-image">
+                <img src="compu3.jpg" alt="">
+                <div class="post-overlay">
+                    <p>
+                        <span class="post-likes">
+                            <i class="fa fa-heart" aria-hidden="true"></i> 150</span>
+                        <span class="post-comments">
+                            <i class="fa fa-comment" aria-hidden="true"></i> 10</span>
+                    </p>
+                </div>
+            </figure>
+        </a>
+        <a href="" class="post">
+            <figure class="post-image">
+                <img src="compu.jpg" alt="">
+                <div class="post-overlay">
+                    <p>
+                        <span class="post-likes">
+                            <i class="fa fa-heart" aria-hidden="true"></i> 150</span>
+                        <span class="post-comments">
+                            <i class="fa fa-comment" aria-hidden="true"></i> 10</span>
+                    </p>
+                </div>
+            </figure>
+        </a>
+        <a href="" class="post">
+            <figure class="post-image">
+                <img src="compu2.jpg" alt="">
+                <div class="post-overlay">
+                    <p>
+                        <span class="post-likes">
+                            <i class="fa fa-heart" aria-hidden="true"></i> 150</span>
+                        <span class="post-comments">
+                            <i class="fa fa-comment" aria-hidden="true"></i> 10</span>
+                    </p>
+                </div>
+            </figure>
+        </a>
+        <a href="" class="post">
+            <figure class="post-image">
+                <img src="compu3.jpg" alt="">
+                <div class="post-overlay">
+                    <p>
+                        <span class="post-likes">
+                            <i class="fa fa-heart" aria-hidden="true"></i> 150</span>
+                        <span class="post-comments">
+                            <i class="fa fa-comment" aria-hidden="true"></i> 10</span>
+                    </p>
+                </div>
+            </figure>
+        </a>
+        <a href="" class="post">
+            <figure class="post-image">
+                <img src="compu.jpg" alt="">
+                <div class="post-overlay">
+                    <p>
+                        <span class="post-likes">
+                            <i class="fa fa-heart" aria-hidden="true"></i> 150</span>
+                        <span class="post-comments">
+                            <i class="fa fa-comment" aria-hidden="true"></i> 10</span>
+                    </p>
+                </div>
+            </figure>
+        </a>
+        <a href="" class="post">
+            <figure class="post-image">
+                <img src="compu2.jpg" alt="">
+                <div class="post-overlay">
+                    <p>
+                        <span class="post-likes">
+                            <i class="fa fa-heart" aria-hidden="true"></i> 150</span>
+                        <span class="post-comments">
+                            <i class="fa fa-comment" aria-hidden="true"></i> 10</span>
+                    </p>
+                </div>
+            </figure>
+        </a>
+        <a href="" class="post">
+            <figure class="post-image">
+                <img src="compu3.jpg" alt="">
+                <div class="post-overlay">
+                    <p>
+                        <span class="post-likes">
+                            <i class="fa fa-heart" aria-hidden="true"></i> 150</span>
+                        <span class="post-comments">
+                            <i class="fa fa-comment" aria-hidden="true"></i> 10</span>
+                    </p>
+                </div>
+            </figure>
+        </a>
+        <a href="" class="post">
+            <figure class="post-image">
+                <img src="compu.jpg" alt="">
+                <div class="post-overlay">
+                    <p>
+                        <span class="post-likes">
+                            <i class="fa fa-heart" aria-hidden="true"></i> 150</span>
+                        <span class="post-comments">
+                            <i class="fa fa-comment" aria-hidden="true"></i> 10</span>
+                    </p>
+                </div>
+            </figure>
+        </a>
+        <a href="" class="post">
+            <figure class="post-image">
+                <img src="compu2.jpg" alt="">
+                <div class="post-overlay">
+                    <p>
+                        <span class="post-likes">
+                            <i class="fa fa-heart" aria-hidden="true"></i> 150</span>
+                        <span class="post-comments">
+                            <i class="fa fa-comment" aria-hidden="true"></i> 10</span>
+                    </p>
+                </div>
+            </figure>
+        </a>
+        <a href="" class="post">
+            <figure class="post-image">
+                <img src="compu3.jpg" alt="">
+                <div class="post-overlay">
+                    <p>
+                        <span class="post-likes">
+                            <i class="fa fa-heart" aria-hidden="true"></i> 150</span>
+                        <span class="post-comments">
+                            <i class="fa fa-comment" aria-hidden="true"></i> 10</span>
+                    </p>
+                </div>
+            </figure>
+        </a>
+    </section>
+</body>
+</html>
